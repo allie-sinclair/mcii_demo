@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MCII Goal Exercise</title>
-<meta name="description" content="A classroom demonstration of Mental Contrasting with Implementation Intentions (MCII / WOOP), with writing prompts and a research debrief.">
+<meta name="description" content="A classroom demonstration of Mental Contrasting with Implementation Intentions (MCII / WOOP), with writing prompts and an explanation of why it works.">
 <style>
 :root{
   --bg:#f6f4ef; --card:#ffffff; --ink:#1f2328; --muted:#5d636b; --line:#e2ded5;
@@ -45,31 +45,30 @@ h1{font-size:28px;line-height:1.25;margin:0 0 10px}
 h2{font-size:22px;line-height:1.3;margin:0 0 8px}
 h3{font-size:17px;margin:22px 0 6px}
 p{margin:0 0 12px}
+ul{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:6px}
 .lede{color:var(--muted)}
 .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:999px;margin-bottom:10px;color:var(--card)}
 .tag.wish{background:var(--wish)} .tag.outcome{background:var(--outcome)} .tag.obstacle{background:var(--obstacle)} .tag.plan{background:var(--plan)} .tag.neutral{background:var(--muted)}
 label{display:block;font-weight:600;margin:18px 0 6px}
 .hint{display:block;font-weight:400;color:var(--muted);font-size:14px;margin-top:2px}
-input[type=text],textarea,select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-textarea{min-height:150px;resize:vertical}
-input:focus,textarea:focus,select:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:4px}
+.opt{font-weight:400;color:var(--muted);font-size:14px}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+textarea{min-height:140px;resize:vertical}
+input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 .scale{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:6px}
-.scale input{position:absolute;opacity:0;pointer-events:none}
+.scale input,.chips input{position:absolute;opacity:0;pointer-events:none}
 .scale label{margin:0;font-weight:600;text-align:center;padding:10px 0;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:var(--bg)}
 .scale input:checked+label{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.scale input:focus-visible+label{outline:3px solid var(--focus);outline-offset:2px}
+.scale input:focus-visible+label,.chips input:focus-visible+label{outline:3px solid var(--focus);outline-offset:2px}
 .anchors{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:4px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.chips input{position:absolute;opacity:0;pointer-events:none}
 .chips label{margin:0;font-weight:500;padding:8px 14px;border:1px solid var(--line);border-radius:999px;cursor:pointer;background:var(--bg)}
 .chips input:checked+label{background:var(--accent-soft);border-color:var(--accent);color:var(--ink);font-weight:700}
-.chips input:focus-visible+label{outline:3px solid var(--focus);outline-offset:2px}
 .nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px;flex-wrap:wrap}
-button,.btn{font:inherit;font-weight:600;border-radius:10px;padding:11px 18px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);text-decoration:none;display:inline-block}
-button.ghost,.btn.ghost{background:transparent;color:var(--accent)}
+button{font:inherit;font-weight:600;border-radius:10px;padding:11px 18px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
+button.ghost{background:transparent;color:var(--accent)}
 button.small{padding:7px 12px;font-size:14px}
-button[disabled]{opacity:.45;cursor:not-allowed}
 .err{color:var(--obstacle);font-size:14px;margin-top:8px;min-height:1em}
 .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:15px;margin:14px 0}
 .warn{background:var(--warn-bg);color:var(--ink);border-left:4px solid var(--warn);border-radius:8px;padding:10px 14px;font-size:15px;margin:12px 0}
@@ -78,25 +77,17 @@ button[disabled]{opacity:.45;cursor:not-allowed}
 .ifthen{display:grid;grid-template-columns:auto 1fr;gap:10px 12px;align-items:center;margin-top:8px}
 .ifthen b{font-size:18px}
 .plan-out{font-size:20px;line-height:1.5;padding:16px 18px;border-left:5px solid var(--plan);background:var(--bg);border-radius:8px;margin:12px 0}
+.part{border-left:5px solid var(--line);padding:2px 0 2px 16px;margin:20px 0}
+.part.mc{border-color:var(--outcome)} .part.ii{border-color:var(--plan)} .part.both{border-color:var(--wish)}
+.part h3{margin-top:0}
 .summary dl{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:0}
 .summary dt{color:var(--muted);font-size:14px}
 .summary dd{margin:0;white-space:pre-wrap;word-break:break-word}
 @media (max-width:520px){.summary dl{grid-template-columns:1fr}.summary dd{margin-bottom:8px}}
-table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
-th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
-tr.you td{background:var(--accent-soft)}
-.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;word-break:break-all;font-size:15px}
 .refs li{margin-bottom:8px;font-size:15px}
 .refs a{color:var(--accent);word-break:break-all}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-@media (max-width:560px){.mode-grid{grid-template-columns:1fr}}
-.mode{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--bg)}
-.mode h3{margin:0 0 4px}
-.mode p{font-size:15px;color:var(--muted)}
 footer{color:var(--muted);font-size:13px;margin-top:22px;text-align:center}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media print{
   body{background:#fff;color:#000}
   header.top,.progress,.nav,.actions,footer,.theme-btn,.noprint{display:none!important}
@@ -120,53 +111,29 @@ footer{color:var(--muted);font-size:13px;margin-top:22px;text-align:center}
 "use strict";
 
 /* ---------- Configuration ---------- */
-// Conditions follow the three self-regulatory modes in Oettingen, Pak, & Schnetter (2001),
-// plus the combined MCII strategy (mental contrasting + implementation intentions).
-var CONDITIONS = {
-  mcii:    { code:"MCII", name:"Mental contrasting + implementation intentions (MCII)",
-             short:"Wish → Outcome → Obstacle → Plan",
-             steps:["wish","outcome","obstacle","plan","post"] },
-  mc:      { code:"MC",   name:"Mental contrasting only",
-             short:"Wish → Outcome → Obstacle (no plan)",
-             steps:["wish","outcome","obstacle","post"] },
-  indulge: { code:"IND",  name:"Indulging (positive fantasy only)",
-             short:"Wish → Outcome → Another outcome",
-             steps:["wish","outcome","outcome2","post"] },
-  dwell:   { code:"DWL",  name:"Dwelling (obstacles only)",
-             short:"Wish → Obstacle → Another obstacle",
-             steps:["wish","obstacle","obstacle2","post"] }
-};
-var STEP_LABEL = { wish:"Wish", outcome:"Outcome", outcome2:"Outcome", obstacle:"Obstacle", obstacle2:"Obstacle", plan:"Plan", post:"Reflect" };
+var STEPS = ["wish","outcome","obstacle","plan"];
+var STEP_LABEL = { wish:"Wish", outcome:"Outcome", obstacle:"Obstacle", plan:"Plan" };
 var DOMAINS = ["Academic / school","Health & fitness","Relationships & social","Work or career","Personal / other"];
-var IMAGERY_SECONDS = 60;
+var OBSTACLE_TYPES = ["Mostly inside me","Mostly in my situation","Both"];
+var IMAGERY_SECONDS = 30;   // timed imagery for the best outcome only
 
 /* ---------- Helpers ---------- */
-function $(sel, root){ return (root||document).querySelector(sel); }
+function $(sel){ return document.querySelector(sel); }
 function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
-function words(s){ s=(s||"").trim(); return s ? s.split(/\s+/).length : 0; }
 function nowISO(){ return new Date().toISOString(); }
-function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-function params(){ try { return new URLSearchParams(window.location.search); } catch(e){ return { get:function(){return null;} }; } }
 
 /* ---------- State ---------- */
-var S;
 function fresh(){
   return {
-    version: 1,
-    condition: null, assignment: null,
-    domain: "", wish: "", wishDetail: "", expectancy: null, importance: null,
-    outcome: { label:"", text:"" }, outcome2: { label:"", text:"" },
-    obstacle: { label:"", text:"" }, obstacle2: { label:"", text:"" },
-    plan: { when:"", action:"" },
-    commitment: null, energy: null,
-    startedAt: null, finishedAt: null, stepTimes: {}
+    domain:"", wish:"", wishDetail:"", expectancy:null, importance:null,
+    outcome:{ label:"", text:"" },
+    obstacle:{ type:"", label:"", text:"" },
+    plan:{ when:"", action:"" },
+    startedAt:null, finishedAt:null
   };
 }
-S = fresh();
-var view = "intro";     // "intro" | step name | "debrief"
-var stepIndex = -1;
-var stepStart = null;
-var timer = null;
+var S = fresh();
+var view = "intro", stepIndex = -1, timer = null;
 
 /* ---------- Theme ---------- */
 $("#themeBtn").addEventListener("click", function(){
@@ -185,209 +152,145 @@ window.addEventListener("beforeunload", function(e){
 function scale(name, value, lo, hi){
   var h = '<div class="scale" role="radiogroup">';
   for (var i=1;i<=7;i++){
-    var id = name+"_"+i;
+    var id=name+"_"+i;
     h += '<input type="radio" name="'+name+'" id="'+id+'" value="'+i+'"'+(value===i?" checked":"")+'><label for="'+id+'">'+i+'</label>';
   }
-  return h + '</div><div class="anchors"><span>'+lo+'</span><span>'+hi+'</span></div>';
+  return h+'</div><div class="anchors"><span>'+lo+'</span><span>'+hi+'</span></div>';
 }
-function counter(id){ return '<div class="meta"><span></span><span id="'+id+'_wc">0 words</span></div>'; }
-function bindCounter(id){
-  var el = document.getElementById(id), out = document.getElementById(id+"_wc");
-  if (!el || !out) return;
-  var f = function(){ var n=words(el.value); out.textContent = n+(n===1?" word":" words"); };
-  el.addEventListener("input", f); f();
+function chips(name, options, value){
+  var h='<div class="chips">';
+  options.forEach(function(o,i){ h+='<input type="radio" name="'+name+'" id="'+name+i+'" value="'+esc(o)+'"'+(value===o?" checked":"")+'><label for="'+name+i+'">'+esc(o)+'</label>'; });
+  return h+'</div>';
 }
-function imageryBlock(kind){
+function radioVal(name, asInt){
+  var r=document.querySelector('input[name="'+name+'"]:checked');
+  return r ? (asInt?parseInt(r.value,10):r.value) : (asInt?null:"");
+}
+function nav(nextLabel){
+  return '<div class="err" id="err" role="alert"></div><div class="nav">'+
+    '<button type="button" class="ghost" id="backBtn">← Back</button>'+
+    '<button type="button" id="nextBtn">'+(nextLabel||"Continue →")+'</button></div>';
+}
+function fail(msg){ var e=$("#err"); if(e) e.textContent=msg; return false; }
+
+function imageryBlock(){
   return '<div class="imagery noprint"><button type="button" class="ghost small" id="imgBtn">▶ Start '+IMAGERY_SECONDS+'‑second imagery</button>'+
-    '<span class="clock" id="imgClock" aria-live="off"></span><span class="hint" id="imgMsg">Optional: take a minute to picture the '+kind+' before writing.</span></div>';
+    '<span class="clock" id="imgClock" aria-live="off"></span><span class="hint" id="imgMsg">Take '+IMAGERY_SECONDS+' seconds to picture the best outcome before you write.</span></div>';
 }
-function bindImagery(kind){
+function bindImagery(){
   var btn=$("#imgBtn"), clock=$("#imgClock"), msg=$("#imgMsg");
-  if(!btn) return;
   btn.addEventListener("click", function(){
-    if (timer){ clearInterval(timer); timer=null; btn.textContent="▶ Start "+IMAGERY_SECONDS+"‑second imagery"; clock.textContent=""; msg.textContent="Imagery stopped. Write whenever you're ready."; return; }
-    var left = IMAGERY_SECONDS;
-    btn.textContent = "■ Stop";
-    msg.textContent = "Close your eyes and let the "+kind+" play out in your mind…";
-    clock.textContent = left+"s";
-    timer = setInterval(function(){
-      left--; clock.textContent = left+"s";
-      if (left<=0){ clearInterval(timer); timer=null; clock.textContent="✓"; btn.textContent="▶ Again"; msg.textContent="Now write down what you pictured."; var t=$("textarea"); if(t) t.focus(); }
+    if (timer){ clearInterval(timer); timer=null; btn.textContent="▶ Start "+IMAGERY_SECONDS+"‑second imagery"; clock.textContent=""; msg.textContent="Imagery stopped. Write whenever you’re ready."; return; }
+    var left=IMAGERY_SECONDS;
+    btn.textContent="■ Stop"; msg.textContent="Close your eyes and let the best outcome play out in your mind…"; clock.textContent=left+"s";
+    timer=setInterval(function(){
+      left--; clock.textContent=left+"s";
+      if (left<=0){ clearInterval(timer); timer=null; clock.textContent="✓"; btn.textContent="▶ Again"; msg.textContent="Now write down what you pictured."; var t=$("#txt"); if(t) t.focus(); }
     },1000);
   });
 }
-function nav(opts){
-  opts = opts||{};
-  return '<div class="err" id="err" role="alert"></div><div class="nav">'+
-    (opts.back===false ? '<span></span>' : '<button type="button" class="ghost" id="backBtn">← Back</button>')+
-    '<button type="button" id="nextBtn">'+(opts.next||"Continue →")+'</button></div>';
-}
-function fail(msg){ var e=$("#err"); if(e) e.textContent=msg; return false; }
-function radioVal(name){ var r=document.querySelector('input[name="'+name+'"]:checked'); return r?parseInt(r.value,10):null; }
 
 function renderProgress(){
-  var p = $("#progress");
-  if (!S.condition || view==="intro"){ p.innerHTML=""; return; }
-  var steps = CONDITIONS[S.condition].steps;
+  var p=$("#progress");
+  if (view==="intro"){ p.innerHTML=""; return; }
   var h="";
-  steps.forEach(function(st,i){
-    var cls = (view==="debrief"||i<stepIndex) ? "done" : (i===stepIndex ? "now" : "");
-    h += '<span class="'+cls+'">'+STEP_LABEL[st]+'</span>';
+  STEPS.forEach(function(st,i){
+    var cls=(view==="debrief"||i<stepIndex)?"done":(i===stepIndex?"now":"");
+    h+='<span class="'+cls+'">'+STEP_LABEL[st]+'</span>';
   });
-  h += '<span class="'+(view==="debrief"?"now":"")+'">Debrief</span>';
-  p.innerHTML = h;
+  p.innerHTML = h+'<span class="'+(view==="debrief"?"now":"")+'">Debrief</span>';
 }
-
 function go(newView, idx){
   if (timer){ clearInterval(timer); timer=null; }
-  if (stepStart && view!=="intro" && view!=="debrief"){
-    S.stepTimes[view] = (S.stepTimes[view]||0) + Math.round((Date.now()-stepStart)/1000);
-  }
-  view = newView; stepIndex = (idx==null?stepIndex:idx); stepStart = Date.now();
-  var app = $("#app");
-  app.innerHTML = RENDER[view]();
+  view=newView; stepIndex=idx;
+  var app=$("#app");
+  app.innerHTML=RENDER[view]();
   if (BIND[view]) BIND[view]();
   renderProgress();
   window.scrollTo(0,0);
   app.focus({preventScroll:true});
 }
-function next(){ var steps=CONDITIONS[S.condition].steps; if (stepIndex+1<steps.length) go(steps[stepIndex+1], stepIndex+1); else { S.finishedAt=nowISO(); go("debrief"); } }
-function back(){ if (stepIndex<=0) go("intro",-1); else go(CONDITIONS[S.condition].steps[stepIndex-1], stepIndex-1); }
+function next(){ if (stepIndex+1<STEPS.length) go(STEPS[stepIndex+1], stepIndex+1); else { S.finishedAt=nowISO(); go("debrief", STEPS.length); } }
+function back(){ if (stepIndex<=0) go("intro",-1); else go(STEPS[stepIndex-1], stepIndex-1); }
 function wireNav(save){
-  var b=$("#backBtn"); if(b) b.addEventListener("click", function(){ save(true); back(); });
+  $("#backBtn").addEventListener("click", function(){ save(true); back(); });
   $("#nextBtn").addEventListener("click", function(){ if (save(false)!==false) next(); });
 }
 
 /* ---------- Screens ---------- */
-var RENDER = {}, BIND = {};
+var RENDER={}, BIND={};
 
 RENDER.intro = function(){
-  var q = params(), forced = q.get("condition");
-  var forcedOk = forced && (CONDITIONS[forced] || forced==="random");
-  var h = '<span class="tag neutral">Welcome</span>'+
+  return '<span class="tag neutral">Welcome</span>'+
     '<h1>Turning a wish into a plan</h1>'+
-    '<p class="lede">In this exercise you’ll pick a personal wish for the next few weeks and work through a short series of writing prompts. It takes about 10–15 minutes. Afterward, you’ll see a debrief explaining the psychology behind what you just did.</p>'+
+    '<p class="lede">In this exercise you’ll pick a personal wish for the next few weeks and work through four short steps: <b>Wish</b>, <b>Outcome</b>, <b>Obstacle</b>, and <b>Plan</b>. It takes about 10 minutes. Afterward, you’ll see an explanation of the psychology behind what you just did.</p>'+
     '<div class="note"><b>Privacy.</b> Everything you type stays in this browser tab. Nothing is sent anywhere. At the end you can download or print your responses if you want to keep them. Closing or reloading the page erases them.</div>'+
-    '<p>Choose something that genuinely matters to you, but that you’re comfortable thinking about in a classroom setting. You won’t be asked to share what you write.</p>';
-  if (forcedOk){
-    h += '<p class="hint">Your instructor has set up this session. Click Begin when you’re ready.</p>'+
-         '<div class="nav"><span></span><button type="button" id="startForced">Begin →</button></div>';
-  } else {
-    h += '<div class="mode-grid">'+
-      '<div class="mode"><h3>Classroom experiment</h3><p>You’ll be randomly assigned to one of four versions of the exercise. Your instructor may compare results across the class.</p><button type="button" id="startRandom">Begin (random version)</button></div>'+
-      '<div class="mode"><h3>Full MCII / WOOP</h3><p>Go straight through the complete Wish–Outcome–Obstacle–Plan exercise.</p><button type="button" class="ghost" id="startFull">Begin full exercise</button></div>'+
-      '</div>';
-  }
-  return h;
+    '<p>Choose something that genuinely matters to you, but that you’re comfortable thinking about in a classroom setting. You won’t be asked to share what you write.</p>'+
+    '<div class="nav"><span></span><button type="button" id="startBtn">Begin →</button></div>';
 };
 BIND.intro = function(){
-  function start(cond, assignment){
-    S = fresh(); S.condition = cond; S.assignment = assignment; S.startedAt = nowISO();
-    go(CONDITIONS[cond].steps[0], 0);
-  }
-  var q=params(), forced=q.get("condition");
-  var f=$("#startForced");
-  if (f) f.addEventListener("click", function(){
-    if (forced==="random") start(pick(Object.keys(CONDITIONS)), "random (instructor link)");
-    else start(forced, "instructor link");
-  });
-  var r=$("#startRandom"); if (r) r.addEventListener("click", function(){ start(pick(Object.keys(CONDITIONS)), "random"); });
-  var u=$("#startFull"); if (u) u.addEventListener("click", function(){ start("mcii", "chosen"); });
+  $("#startBtn").addEventListener("click", function(){ S=fresh(); S.startedAt=nowISO(); go("wish",0); });
 };
 
 RENDER.wish = function(){
-  var h = '<span class="tag wish">Wish</span><h2>What do you want to accomplish?</h2>'+
+  return '<span class="tag wish">Wish</span><h2>What do you want to accomplish?</h2>'+
     '<p>Think about a wish or concern that you would like to fulfill <b>in the next four weeks</b>. Pick one that is <b>challenging</b> for you, but that you could <b>realistically</b> achieve.</p>'+
-    '<label>Which area of life is it in?</label><div class="chips">';
-  DOMAINS.forEach(function(d,i){ h+='<input type="radio" name="domain" id="dom'+i+'" value="'+esc(d)+'"'+(S.domain===d?" checked":"")+'><label for="dom'+i+'">'+esc(d)+'</label>'; });
-  h += '</div>'+
+    '<label>Which area of life is it in? <span class="opt">(optional)</span></label>'+chips("domain",DOMAINS,S.domain)+
     '<label for="wish">State your wish in a few words<span class="hint">e.g., “Start my lit review early,” “Run three times a week,” “Call my grandmother more.”</span></label>'+
     '<input type="text" id="wish" maxlength="90" value="'+esc(S.wish)+'" autocomplete="off">'+
-    '<label for="wishDetail">Optional: add a sentence of detail</label>'+
+    '<label for="wishDetail">Add a sentence of detail <span class="opt">(optional)</span></label>'+
     '<input type="text" id="wishDetail" maxlength="200" value="'+esc(S.wishDetail)+'" autocomplete="off">'+
-    '<label>How likely do you think it is that you will fulfill this wish?</label>'+ scale("expectancy", S.expectancy, "1 · Not at all likely", "7 · Very likely")+
-    '<label>How important is this wish to you?</label>'+ scale("importance", S.importance, "1 · Not at all", "7 · Extremely")+
+    '<label>How likely do you think it is that you will fulfill this wish? <span class="opt">(optional)</span></label>'+scale("expectancy",S.expectancy,"1 · Not at all likely","7 · Very likely")+
+    '<label>How important is this wish to you? <span class="opt">(optional)</span></label>'+scale("importance",S.importance,"1 · Not at all","7 · Extremely")+
     nav();
-  return h;
 };
 BIND.wish = function(){
   wireNav(function(soft){
-    var d=document.querySelector('input[name="domain"]:checked');
-    S.domain = d?d.value:""; S.wish=$("#wish").value.trim(); S.wishDetail=$("#wishDetail").value.trim();
-    S.expectancy=radioVal("expectancy"); S.importance=radioVal("importance");
-    if (soft) return;
-    if (!S.domain) return fail("Please choose an area of life.");
-    if (words(S.wish)<2) return fail("Please describe your wish in at least a couple of words.");
-    if (!S.expectancy || !S.importance) return fail("Please answer both rating questions.");
+    S.domain=radioVal("domain"); S.wish=$("#wish").value.trim(); S.wishDetail=$("#wishDetail").value.trim();
+    S.expectancy=radioVal("expectancy",true); S.importance=radioVal("importance",true);
+    if (!soft && !S.wish) return fail("Please write down your wish so the next steps can refer to it.");
   });
 };
-
-function elaborationScreen(o){
-  // o: {tag, cls, title, intro, labelQ, labelHint, imagineQ, key, kind, extra}
-  var v = S[o.key];
-  return '<span class="tag '+o.cls+'">'+o.tag+'</span><h2>'+o.title+'</h2>'+
-    '<div class="note"><b>Your wish:</b> '+esc(S.wish)+'</div>'+
-    (o.extra||"")+
-    '<p>'+o.intro+'</p>'+
-    '<label for="lbl">'+o.labelQ+'<span class="hint">'+o.labelHint+'</span></label>'+
-    '<input type="text" id="lbl" maxlength="90" value="'+esc(v.label)+'" autocomplete="off">'+
-    '<label for="txt">'+o.imagineQ+'<span class="hint">Let your mind go. Write in full sentences or fragments, whatever comes. There are no right answers, and no one will grade this.</span></label>'+
-    imageryBlock(o.kind)+
-    '<textarea id="txt">'+esc(v.text)+'</textarea>'+counter("txt")+
-    nav();
-}
-function bindElaboration(key, kind){
-  bindCounter("txt"); bindImagery(kind);
-  wireNav(function(soft){
-    S[key].label=$("#lbl").value.trim(); S[key].text=$("#txt").value.trim();
-    if (soft) return;
-    if (words(S[key].label)<1) return fail("Please name it in a few words.");
-    if (words(S[key].text)<10) return fail("Please write at least a couple of sentences (10+ words) about what you imagined.");
-  });
-}
 
 RENDER.outcome = function(){
-  return elaborationScreen({ tag:"Outcome", cls:"outcome", key:"outcome", kind:"best outcome",
-    title:"Imagine the best outcome",
-    intro:"Suppose your wish came true. What would be the single best thing about that? What would it feel like?",
-    labelQ:"Name the best outcome in a few words", labelHint:"e.g., “Feeling calm going into finals.”",
-    imagineQ:"Now picture that outcome as vividly as you can. What do you see, feel, and think?" });
+  return '<span class="tag outcome">Outcome</span><h2>Imagine the best outcome</h2>'+
+    '<div class="note"><b>Your wish:</b> '+esc(S.wish)+'</div>'+
+    '<p>Suppose your wish came true. What would be the single <b>best</b> thing about that? What would it feel like?</p>'+
+    '<label for="lbl">Name the best outcome in a few words<span class="hint">e.g., “Feeling calm going into finals.”</span></label>'+
+    '<input type="text" id="lbl" maxlength="90" value="'+esc(S.outcome.label)+'" autocomplete="off">'+
+    '<label for="txt">Now picture that outcome as vividly as you can. What do you see, feel, and think? <span class="opt">(optional)</span>'+
+      '<span class="hint">Let your mind go. Write in sentences or fragments, whatever comes. There are no right answers.</span></label>'+
+    imageryBlock()+
+    '<textarea id="txt">'+esc(S.outcome.text)+'</textarea>'+
+    nav();
 };
-BIND.outcome = function(){ bindElaboration("outcome","best outcome"); };
-
-RENDER.outcome2 = function(){
-  return elaborationScreen({ tag:"Outcome", cls:"outcome", key:"outcome2", kind:"positive outcome",
-    title:"Imagine another positive outcome",
-    extra:'<p class="hint">Your first outcome: <b>'+esc(S.outcome.label)+'</b></p>',
-    intro:"What is another good thing that would come from fulfilling your wish?",
-    labelQ:"Name this second outcome in a few words", labelHint:"Something different from the first.",
-    imagineQ:"Picture this outcome as vividly as you can. What do you see, feel, and think?" });
+BIND.outcome = function(){
+  bindImagery();
+  wireNav(function(soft){
+    S.outcome.label=$("#lbl").value.trim(); S.outcome.text=$("#txt").value.trim();
+    if (!soft && !S.outcome.label) return fail("Please name your best outcome.");
+  });
 };
-BIND.outcome2 = function(){ bindElaboration("outcome2","positive outcome"); };
 
 RENDER.obstacle = function(){
-  var cond = S.condition;
-  var intro = (cond==="dwell")
-    ? "Think about your current situation. What stands in the way of fulfilling your wish? Focus especially on something <b>within you</b>, such as a habit, an emotion, a belief, or a tendency."
-    : "Now come back to the present. What is it <b>within you</b> that holds you back from fulfilling your wish? Think of a habit, an emotion, a belief, or a tendency, not just outside circumstances. What is your <b>main inner obstacle</b>?";
-  return elaborationScreen({ tag:"Obstacle", cls:"obstacle", key:"obstacle", kind:"obstacle",
-    title: cond==="dwell" ? "What stands in your way?" : "Identify your main inner obstacle",
-    extra: (cond!=="dwell" && S.outcome.label) ? '<p class="hint">Your best outcome: <b>'+esc(S.outcome.label)+'</b></p>' : "",
-    intro: intro,
-    labelQ:"Name the obstacle in a few words", labelHint:"e.g., “I scroll my phone when I’m tired,” “Fear of looking dumb.”",
-    imagineQ:"Picture this obstacle as vividly as you can. When and where does it show up? What does it feel like in the moment?" });
+  return '<span class="tag obstacle">Obstacle</span><h2>Identify your main obstacle</h2>'+
+    '<div class="note"><b>Your wish:</b> '+esc(S.wish)+'<br><b>Best outcome:</b> '+esc(S.outcome.label)+'</div>'+
+    '<p>Now come back to the present. What is the <b>main obstacle</b> that stands between you and that outcome?</p>'+
+    '<p>It can be something <b>inside you</b>, like a habit, an emotion, or a belief, or something in your <b>situation</b>, like your schedule, other people, or your surroundings. Pick the one that matters most.</p>'+
+    '<label>Is this obstacle mostly inside you or in your situation? <span class="opt">(optional)</span></label>'+chips("otype",OBSTACLE_TYPES,S.obstacle.type)+
+    '<label for="lbl">Name the obstacle in a few words<span class="hint">e.g., “I scroll my phone when I’m tired,” “My roommate is loud in the evenings,” “Fear of looking dumb.”</span></label>'+
+    '<input type="text" id="lbl" maxlength="90" value="'+esc(S.obstacle.label)+'" autocomplete="off">'+
+    '<label for="txt">When and where does this obstacle tend to show up? <span class="opt">(optional)</span>'+
+      '<span class="hint">A few words about the situation will help you make your plan in the next step.</span></label>'+
+    '<textarea id="txt">'+esc(S.obstacle.text)+'</textarea>'+
+    nav();
 };
-BIND.obstacle = function(){ bindElaboration("obstacle","obstacle"); };
-
-RENDER.obstacle2 = function(){
-  return elaborationScreen({ tag:"Obstacle", cls:"obstacle", key:"obstacle2", kind:"obstacle",
-    title:"What else stands in your way?",
-    extra:'<p class="hint">Your first obstacle: <b>'+esc(S.obstacle.label)+'</b></p>',
-    intro:"What is another obstacle in your current situation, ideally something within you, that stands between you and your wish?",
-    labelQ:"Name this second obstacle in a few words", labelHint:"Something different from the first.",
-    imagineQ:"Picture this obstacle as vividly as you can. When and where does it show up? What does it feel like?" });
+BIND.obstacle = function(){
+  wireNav(function(soft){
+    S.obstacle.type=radioVal("otype"); S.obstacle.label=$("#lbl").value.trim(); S.obstacle.text=$("#txt").value.trim();
+    if (!soft && !S.obstacle.label) return fail("Please name your main obstacle.");
+  });
 };
-BIND.obstacle2 = function(){ bindElaboration("obstacle2","obstacle"); };
 
 RENDER.plan = function(){
   var when = S.plan.when || S.obstacle.label;
@@ -398,155 +301,115 @@ RENDER.plan = function(){
     '<div class="ifthen"><b>If</b><input type="text" id="planWhen" maxlength="160" value="'+esc(when)+'" aria-label="If (the obstacle, when and where)">'+
     '<b>then I will</b><input type="text" id="planAction" maxlength="160" value="'+esc(S.plan.action)+'" aria-label="Then I will (the action)"></div>'+
     '<div class="warn" id="planWarn" hidden></div>'+
-    '<p class="hint" style="margin-top:14px">Example: <i>If</i> it’s 9 pm and I feel the urge to open my phone instead of studying, <i>then I will</i> put it in the other room and read one page.</p>'+
+    '<p class="hint" style="margin-top:14px">Examples:<br>'+
+      '<i>If</i> it’s 9 pm and I feel the urge to open my phone instead of studying, <i>then I will</i> put it in the other room and read one page.<br>'+
+      '<i>If</i> my roommate is loud when I sit down to work in the evening, <i>then I will</i> take my laptop to the library.</p>'+
     '<h3>Your plan</h3><div class="plan-out" id="planOut"></div>'+
     '<p class="hint">Before continuing, read your plan to yourself once more.</p>'+
-    nav();
+    nav("See debrief →");
 };
+function cleanWhen(s){ return s.trim().replace(/^if\s+/i,"").replace(/[,.]\s*$/,""); }
+function cleanAction(s){ return s.trim().replace(/^then\s+(i\s+will\s+)?/i,"").replace(/^i\s+will\s+/i,"").replace(/\.\s*$/,""); }
 BIND.plan = function(){
   var w=$("#planWhen"), a=$("#planAction"), out=$("#planOut"), warn=$("#planWarn");
   function upd(){
-    var ws=w.value.trim().replace(/^if\s+/i,""), as=a.value.trim().replace(/^then\s+(i\s+will\s+)?/i,"");
-    out.innerHTML = '<b>If</b> '+(esc(ws)||"…")+', <b>then I will</b> '+(esc(as)||"…")+'.';
+    var ws=cleanWhen(w.value), as=cleanAction(a.value);
+    out.innerHTML='<b>If</b> '+(esc(ws)||"…")+', <b>then I will</b> '+(esc(as)||"…")+'.';
     var tips=[];
-    if (ws && words(ws)<5) tips.push("Try making the “if” part more specific: when and where does the obstacle happen?");
-    if (as && /\b(try|better|more|less|harder)\b/i.test(as) && words(as)<6) tips.push("Vague actions (“try harder,” “do better”) work less well. What exactly will you do?");
-    warn.hidden = !tips.length; warn.innerHTML = tips.map(esc).join("<br>");
+    if (ws && !/\b(when|whenever|after|before|at|in|on|during|while|every|morning|afternoon|evening|night|pm|am)\b/i.test(ws))
+      tips.push("Tip: plans work best when the “if” part names a specific moment or place. When or where does this obstacle happen?");
+    if (as && /\b(try|better|harder)\b/i.test(as))
+      tips.push("Tip: vague actions (“try harder,” “do better”) are hard to carry out. What exactly will you do?");
+    warn.hidden=!tips.length; warn.innerHTML=tips.map(esc).join("<br>");
   }
   w.addEventListener("input",upd); a.addEventListener("input",upd); upd();
   wireNav(function(soft){
-    S.plan.when=w.value.trim().replace(/^if\s+/i,""); S.plan.action=a.value.trim().replace(/^then\s+(i\s+will\s+)?/i,"");
+    S.plan.when=cleanWhen(w.value); S.plan.action=cleanAction(a.value);
     if (soft) return;
-    if (words(S.plan.when)<2) return fail("Please describe the obstacle situation in the “if” part.");
-    if (words(S.plan.action)<2) return fail("Please describe what you will do in the “then” part.");
-  });
-};
-
-RENDER.post = function(){
-  return '<span class="tag neutral">Reflect</span><h2>A few quick ratings</h2>'+
-    '<p>Think about your wish (<b>'+esc(S.wish)+'</b>) as you answer.</p>'+
-    '<label>How committed do you feel to fulfilling this wish?</label>'+scale("commitment",S.commitment,"1 · Not at all","7 · Extremely")+
-    '<label>How energized do you feel right now when you think about it?</label>'+scale("energy",S.energy,"1 · Not at all","7 · Extremely")+
-    nav({next:"See debrief →"});
-};
-BIND.post = function(){
-  wireNav(function(soft){
-    S.commitment=radioVal("commitment"); S.energy=radioVal("energy");
-    if (soft) return;
-    if (!S.commitment || !S.energy) return fail("Please answer both questions.");
+    if (!S.plan.when) return fail("Please fill in the “if” part of your plan.");
+    if (!S.plan.action) return fail("Please fill in the “then” part of your plan.");
   });
 };
 
 /* ---------- Debrief ---------- */
-function classCode(){
-  var c=CONDITIONS[S.condition].code;
-  return [c,"E"+S.expectancy,"I"+S.importance,"C"+S.commitment,"N"+S.energy,"W"+totalWords()].join("-");
-}
-function totalWords(){
-  return words(S.outcome.text)+words(S.outcome2.text)+words(S.obstacle.text)+words(S.obstacle2.text);
-}
 function planSentence(){ return "If "+S.plan.when+", then I will "+S.plan.action+"."; }
 
 RENDER.debrief = function(){
-  var c=CONDITIONS[S.condition];
-  var rows = [
-    ["mcii","MCII","Best outcome, then main inner obstacle, then an if‑then plan linking the obstacle to an action.","Goal pursuit follows expectations, and the plan automates the response to the obstacle. Meta‑analyses show reliable benefits for goal attainment."],
-    ["mc","Mental contrasting","Best outcome, then the obstacle in reality, without a plan.","Commitment tracks expectations: strong commitment when success seems likely, letting go when it seems unlikely."],
-    ["indulge","Indulging","Only positive aspects of the desired future.","Moderate commitment regardless of expectations. The future is enjoyed in fantasy, but no “need to act” is created."],
-    ["dwell","Dwelling","Only negative aspects of the present reality.","Moderate commitment regardless of expectations. Problems are noticed without a desired future to steer toward."]
-  ];
-  var h = '<span class="tag neutral">Debrief</span><h1>What you just did</h1>'+
-    '<p>You completed the <b>'+esc(c.name)+'</b> version of this exercise'+(S.assignment&&S.assignment.indexOf("random")===0?" (assigned at random)":"")+'.</p>'+
-    '<h3>The four versions</h3>'+
-    '<p>This demo is modeled on studies of <i>fantasy realization theory</i>, which compared three ways of thinking about a wish (Oettingen, Pak, &amp; Schnetter, 2001), plus the combined MCII strategy that adds an if‑then plan.</p>'+
-    '<div style="overflow-x:auto"><table><thead><tr><th>Version</th><th>What you think about</th><th>Predicted effect on commitment</th></tr></thead><tbody>';
-  rows.forEach(function(r){ h+='<tr class="'+(r[0]===S.condition?"you":"")+'"><td><b>'+r[1]+'</b>'+(r[0]===S.condition?" ← you":"")+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>'; });
-  h += '</tbody></table></div>'+
-    '<h3>Why the order matters</h3>'+
-    '<p>In mental contrasting, imagining the desired future <i>first</i> and then turning to the obstacle is thought to link the two in memory: the obstacle becomes something standing between you and the outcome you want. When expectations of success are high, this creates a sense that action is needed. When they are low, it can help people disengage from goals that are not feasible. Simply fantasizing (indulging) or simply thinking about problems (dwelling) does not create this link, so commitment does not depend on expectations.</p>'+
-    '<p><b>Implementation intentions</b> (if‑then plans) add a second ingredient. By specifying in advance a situational cue (“if…”) and a response (“then I will…”), people delegate the decision to the situation, making the response more automatic when the cue arises (Gollwitzer, 1999).</p>'+
-    '<h3>What the evidence says</h3>'+
-    '<ul>'+
-    '<li>A meta‑analysis of 94 independent tests found that forming implementation intentions had a medium‑to‑large effect on goal attainment, <i>d</i> = .65 (Gollwitzer &amp; Sheeran, 2006).</li>'+
-    '<li>In a study of high‑school students preparing for the PSAT, those who completed MCII finished over 60% more practice questions than a control group (Duckworth et al., 2011).</li>'+
-    '<li>A meta‑analysis of MCII interventions found a small‑to‑medium pooled effect on goal attainment, Hedges’ <i>g</i> = 0.336 (Wang, Wang, &amp; Gai, 2021).</li>'+
-    '</ul>'+
-    '<p class="hint">Note that effect sizes from meta‑analyses are averages across very different goals, populations, and outcome measures; they don’t predict what will happen for any one person.</p>'+
-    '<h3>Your responses</h3>'+
-    '<div class="summary"><dl>'+
-      '<dt>Area</dt><dd>'+esc(S.domain)+'</dd>'+
+  var low = S.expectancy && S.expectancy<=3;
+  var h='<span class="tag neutral">Debrief</span><h1>What you just did</h1>'+
+    '<p>You just completed <b>Mental Contrasting with Implementation Intentions (MCII)</b>, a self‑regulation strategy developed by Gabriele Oettingen, Peter Gollwitzer, and colleagues. Its everyday version is often called <b>WOOP</b>, after the four steps: Wish, Outcome, Obstacle, Plan.</p>'+
+    '<h3>Your plan</h3><div class="plan-out">'+'<b>If</b> '+esc(S.plan.when)+', <b>then I will</b> '+esc(S.plan.action)+'.</div>'+
+    '<p>The strategy combines two separate techniques, each of which addresses a different problem in pursuing goals.</p>'+
+
+    '<div class="part mc"><h3>Part 1 · Mental contrasting (Wish, Outcome, Obstacle)</h3>'+
+    '<p><b>What you did:</b> You imagined the best outcome of your wish, then turned to the reality that stands in the way.</p>'+
+    '<p><b>Why it works:</b> Simply fantasizing about a desired future feels good, but positive fantasies on their own tend not to translate into action. In some studies they predicted <i>less</i> effort and poorer outcomes, possibly because the mind partly “enjoys” the goal in advance (reviewed in Oettingen, 2012). Mental contrasting puts the desired future and present reality side by side, so the obstacle is seen as something standing between you and what you want, and therefore as something that needs to be dealt with.</p>'+
+    '<p><b>The order matters.</b> Imagining the future <i>first</i> and the obstacle <i>second</i> is what creates this link. Thinking only about problems, or listing obstacles before imagining the outcome, does not have the same effect (Oettingen, Pak, &amp; Schnetter, 2001).</p>'+
+    '<p><b>It helps you choose goals wisely.</b> Mental contrasting makes commitment track how feasible a goal is. When people believe they can succeed, it boosts their energy and commitment. When they believe success is unlikely, it makes it easier to let go of the goal or revise it (Oettingen et al., 2001).'+
+      (low?' You rated your chances as fairly low, so it may be worth asking whether a smaller or adjusted version of this wish would be a better fit right now.':'')+'</p></div>'+
+
+    '<div class="part ii"><h3>Part 2 · Implementation intentions (Plan)</h3>'+
+    '<p><b>What you did:</b> You turned your obstacle into an <i>if‑then plan</i> that links a specific situation to a specific response.</p>'+
+    '<p><b>Why it works:</b> Most of us intend to do things and then fail to follow through in the moment. An if‑then plan helps in two ways (Gollwitzer, 1999):</p>'+
+    '<ul><li><b>The “if” part</b> makes the critical situation easier to notice. Because you’ve already pictured it, you’re more likely to recognize it when it happens.</li>'+
+    '<li><b>The “then” part</b> means the decision is already made. When the situation arises, the planned response can start more automatically, without having to deliberate or summon willpower on the spot.</li></ul>'+
+    '<p>A meta‑analysis of 94 independent tests found that forming implementation intentions had a medium‑to‑large effect on goal attainment, <i>d</i> = .65 (Gollwitzer &amp; Sheeran, 2006).</p></div>'+
+
+    '<div class="part both"><h3>Why combine them?</h3>'+
+    '<p>The two parts fill each other’s gaps. Mental contrasting builds commitment and identifies the obstacle; that obstacle becomes the “if” of your plan. The implementation intention then supplies the “how,” so commitment turns into action at the right moment.</p>'+
+    '<ul><li>In a study of high‑school students preparing for the PSAT, those who completed MCII finished over 60% more practice questions than a control group (Duckworth et al., 2011).</li>'+
+    '<li>A meta‑analysis of MCII studies found a small‑to‑medium pooled effect on goal attainment, Hedges’ <i>g</i> = 0.336 (Wang, Wang, &amp; Gai, 2021).</li></ul>'+
+    '<p class="hint">Effect sizes from meta‑analyses are averages across very different goals, people, and outcome measures. They don’t predict what will happen for any one person.</p></div>'+
+
+    '<div class="note"><b>Using this on your own.</b> The four steps take just a few minutes once you know them. People often repeat them daily, or before a challenging task. Try keeping your plan somewhere you’ll see it, and check in with it in a week.</div>'+
+
+    '<h3>Your responses</h3><div class="summary"><dl>'+
+      (S.domain?'<dt>Area</dt><dd>'+esc(S.domain)+'</dd>':'')+
       '<dt>Wish</dt><dd>'+esc(S.wish)+(S.wishDetail?' — '+esc(S.wishDetail):'')+'</dd>'+
-      '<dt>Expectancy</dt><dd>'+S.expectancy+' / 7</dd>'+
-      '<dt>Importance</dt><dd>'+S.importance+' / 7</dd>';
-  if (S.outcome.label) h+='<dt>Outcome</dt><dd><b>'+esc(S.outcome.label)+'</b>\n'+esc(S.outcome.text)+'</dd>';
-  if (S.outcome2.label) h+='<dt>Outcome 2</dt><dd><b>'+esc(S.outcome2.label)+'</b>\n'+esc(S.outcome2.text)+'</dd>';
-  if (S.obstacle.label) h+='<dt>Obstacle</dt><dd><b>'+esc(S.obstacle.label)+'</b>\n'+esc(S.obstacle.text)+'</dd>';
-  if (S.obstacle2.label) h+='<dt>Obstacle 2</dt><dd><b>'+esc(S.obstacle2.label)+'</b>\n'+esc(S.obstacle2.text)+'</dd>';
-  if (S.condition==="mcii") h+='<dt>If‑then plan</dt><dd><b>'+esc(planSentence())+'</b></dd>';
-  h += '<dt>Commitment</dt><dd>'+S.commitment+' / 7</dd>'+
-       '<dt>Energization</dt><dd>'+S.energy+' / 7</dd></dl></div>'+
+      (S.expectancy?'<dt>Likelihood</dt><dd>'+S.expectancy+' / 7</dd>':'')+
+      (S.importance?'<dt>Importance</dt><dd>'+S.importance+' / 7</dd>':'')+
+      '<dt>Best outcome</dt><dd><b>'+esc(S.outcome.label)+'</b>'+(S.outcome.text?'\n'+esc(S.outcome.text):'')+'</dd>'+
+      '<dt>Obstacle</dt><dd><b>'+esc(S.obstacle.label)+'</b>'+(S.obstacle.type?' ('+esc(S.obstacle.type.toLowerCase())+')':'')+(S.obstacle.text?'\n'+esc(S.obstacle.text):'')+'</dd>'+
+      '<dt>If‑then plan</dt><dd><b>'+esc(planSentence())+'</b></dd>'+
+    '</dl></div>'+
     '<div class="actions noprint">'+
       '<button type="button" id="dlTxt">Download as text</button>'+
-      '<button type="button" class="ghost" id="dlJson">Download data (JSON)</button>'+
       '<button type="button" class="ghost" id="printBtn">Print / save PDF</button>'+
     '</div>'+
-    '<h3 class="noprint">For the class comparison</h3>'+
-    '<p class="noprint">If your instructor is collecting results, share <b>only this code</b>. It contains your version and ratings, not anything you wrote.</p>'+
-    '<div class="actions noprint" style="align-items:center"><div class="code" id="ccode">'+esc(classCode())+'</div><button type="button" class="ghost small" id="copyCode">Copy</button></div>'+
-    '<p class="hint noprint">Key: version · E = expectancy · I = importance · C = commitment · N = energization · W = words written in the imagery prompts.</p>';
-  if (S.condition!=="mcii"){
-    h += '<div class="note noprint"><b>Want to try the full strategy?</b> MCII is the version recommended for everyday use. You can run through it now with the same wish.<div class="actions"><button type="button" id="tryFull">Try full MCII with this wish</button></div></div>';
-  } else {
-    h += '<div class="note"><b>Using this on your own.</b> People often run through these four steps in a few minutes, once a day or before a challenging task. Consider checking in with your plan a week from now.</div>';
-  }
-  h += '<h3>References</h3><ol class="refs">'+
+
+    '<h3>References</h3><ol class="refs">'+
     '<li>Duckworth, A. L., Grant, H., Loew, B., Oettingen, G., &amp; Gollwitzer, P. M. (2011). Self‑regulation strategies improve self‑discipline in adolescents: Benefits of mental contrasting and implementation intentions. <i>Educational Psychology, 31</i>(1), 17–26. <a href="https://doi.org/10.1080/01443410.2010.506003" target="_blank" rel="noopener">https://doi.org/10.1080/01443410.2010.506003</a></li>'+
     '<li>Gollwitzer, P. M. (1999). Implementation intentions: Strong effects of simple plans. <i>American Psychologist, 54</i>(7), 493–503. <a href="https://doi.org/10.1037/0003-066X.54.7.493" target="_blank" rel="noopener">https://doi.org/10.1037/0003-066X.54.7.493</a></li>'+
     '<li>Gollwitzer, P. M., &amp; Sheeran, P. (2006). Implementation intentions and goal achievement: A meta‑analysis of effects and processes. <i>Advances in Experimental Social Psychology, 38</i>, 69–119. <a href="https://doi.org/10.1016/S0065-2601(06)38002-1" target="_blank" rel="noopener">https://doi.org/10.1016/S0065-2601(06)38002-1</a></li>'+
+    '<li>Oettingen, G. (2012). Future thought and behaviour change. <i>European Review of Social Psychology, 23</i>(1), 1–63. <a href="https://doi.org/10.1080/10463283.2011.643698" target="_blank" rel="noopener">https://doi.org/10.1080/10463283.2011.643698</a></li>'+
     '<li>Oettingen, G., Pak, H., &amp; Schnetter, K. (2001). Self‑regulation of goal setting: Turning free fantasies about the future into binding goals. <i>Journal of Personality and Social Psychology, 80</i>(5), 736–753. <a href="https://doi.org/10.1037/0022-3514.80.5.736" target="_blank" rel="noopener">https://doi.org/10.1037/0022-3514.80.5.736</a></li>'+
     '<li>Wang, G., Wang, Y., &amp; Gai, X. (2021). A meta‑analysis of the effects of mental contrasting with implementation intentions on goal attainment. <i>Frontiers in Psychology, 12</i>, 565202. <a href="https://doi.org/10.3389/fpsyg.2021.565202" target="_blank" rel="noopener">https://doi.org/10.3389/fpsyg.2021.565202</a></li>'+
     '</ol>'+
-    '<p class="hint">The public‑facing version of MCII is called WOOP (Wish, Outcome, Obstacle, Plan). This page is an independent teaching demo and is not affiliated with the original researchers.</p>'+
+    '<p class="hint">This page is an independent teaching demo and is not affiliated with the original researchers or the official WOOP program.</p>'+
     '<div class="nav noprint"><button type="button" class="ghost" id="restart">Start over</button><span></span></div>';
   return h;
 };
 
-function download(name, text, type){
-  var blob=new Blob([text],{type:type}), a=document.createElement("a");
-  a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click();
-  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
-}
 function asText(){
-  var L=[], c=CONDITIONS[S.condition];
-  L.push("GOAL EXERCISE: "+c.name); L.push("Completed: "+new Date(S.finishedAt||Date.now()).toLocaleString()); L.push("");
-  L.push("Area: "+S.domain); L.push("Wish: "+S.wish+(S.wishDetail?" — "+S.wishDetail:""));
-  L.push("Expectancy: "+S.expectancy+"/7   Importance: "+S.importance+"/7"); L.push("");
-  function sec(t,o){ if(o.label){ L.push(t.toUpperCase()+": "+o.label); L.push(o.text); L.push(""); } }
-  sec("Outcome",S.outcome); sec("Outcome 2",S.outcome2); sec("Obstacle",S.obstacle); sec("Obstacle 2",S.obstacle2);
-  if (S.condition==="mcii"){ L.push("IF-THEN PLAN:"); L.push(planSentence()); L.push(""); }
-  L.push("Commitment: "+S.commitment+"/7   Energization: "+S.energy+"/7");
-  L.push("Class code: "+classCode());
+  var L=[];
+  L.push("MCII / WOOP GOAL EXERCISE"); L.push("Completed: "+new Date(S.finishedAt||Date.now()).toLocaleString()); L.push("");
+  if (S.domain) L.push("Area: "+S.domain);
+  L.push("Wish: "+S.wish+(S.wishDetail?" — "+S.wishDetail:""));
+  if (S.expectancy) L.push("Likelihood: "+S.expectancy+"/7");
+  if (S.importance) L.push("Importance: "+S.importance+"/7");
+  L.push("");
+  L.push("BEST OUTCOME: "+S.outcome.label); if (S.outcome.text) L.push(S.outcome.text); L.push("");
+  L.push("OBSTACLE: "+S.obstacle.label+(S.obstacle.type?" ("+S.obstacle.type.toLowerCase()+")":"")); if (S.obstacle.text) L.push(S.obstacle.text); L.push("");
+  L.push("IF-THEN PLAN:"); L.push(planSentence());
   return L.join("\n");
 }
 BIND.debrief = function(){
-  $("#dlTxt").addEventListener("click", function(){ download("goal-exercise.txt", asText(), "text/plain"); });
-  $("#dlJson").addEventListener("click", function(){
-    var d=JSON.parse(JSON.stringify(S)); d.conditionName=CONDITIONS[S.condition].name; d.classCode=classCode();
-    download("goal-exercise.json", JSON.stringify(d,null,2), "application/json");
+  $("#dlTxt").addEventListener("click", function(){
+    var blob=new Blob([asText()],{type:"text/plain"}), a=document.createElement("a");
+    a.href=URL.createObjectURL(blob); a.download="my-woop-plan.txt"; document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
   });
   $("#printBtn").addEventListener("click", function(){ window.print(); });
-  $("#copyCode").addEventListener("click", function(){
-    var t=classCode(), btn=this;
-    function ok(){ btn.textContent="Copied ✓"; setTimeout(function(){btn.textContent="Copy";},1500); }
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, function(){ selectCode(); });
-    else selectCode();
-  });
-  function selectCode(){ var r=document.createRange(); r.selectNodeContents($("#ccode")); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); }
-  var tf=$("#tryFull"); if (tf) tf.addEventListener("click", function(){
-    var keep={domain:S.domain,wish:S.wish,wishDetail:S.wishDetail,expectancy:S.expectancy,importance:S.importance};
-    S=fresh(); Object.assign(S,keep); S.condition="mcii"; S.assignment="follow-up"; S.startedAt=nowISO();
-    go("wish",0);
-  });
   $("#restart").addEventListener("click", function(){ if (confirm("Start over? Your current responses will be cleared.")){ S=fresh(); go("intro",-1); } });
 };
 
